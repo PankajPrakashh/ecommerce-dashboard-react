@@ -1,0 +1,12 @@
+.Button {
+  font-family: var(--font-family);
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  &:active,
+  &:focus,
+  &:hover {
+    outline: none;
+  }
+}
