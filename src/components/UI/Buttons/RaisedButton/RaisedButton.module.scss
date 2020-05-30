@@ -3,7 +3,7 @@
 
 .RaisedButton {
 
-  @include elevation;
+  @include elevation(2);
   font-size: .8rem;
   color: white;
 
@@ -22,19 +22,20 @@
   transition: background-color 0.15s ease-in-out;
 
   &:hover,
-  &:active,
   &:focus {
 
+    @include elevation(5);
+
     &.Accent {
-      background-color: lighten($accent, 22);
+      background-color: lighten($accent, 5);
     }
 
     &.Warn {
-      background-color: lighten($warn, 22);
+      background-color: lighten($warn, 5);
     }
 
     &.Primary {
-      background-color: lighten($primary, 22);
+      background-color: lighten($primary, 5);
     }
   }
 }
