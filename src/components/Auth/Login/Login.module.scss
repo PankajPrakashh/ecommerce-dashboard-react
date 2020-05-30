@@ -1,0 +1,23 @@
+.Login {
+
+  width: 340px !important;
+  
+
+  .ProfilePic {
+    width: 66px;
+    margin-top: -40px;
+    padding: 5px 0;
+    text-align: center;
+    background: white;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .Remember {
+    max-width: 100%;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+  }
+}

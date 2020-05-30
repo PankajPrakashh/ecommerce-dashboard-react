@@ -37,7 +37,7 @@ export default class Auth extends Component {
   render () {
 
     return (
-      <div className={classes.AuthPage}>
+      <div className={[classes.AuthPage, classes.CenterContent].join(' ')}>
         
         {/* Auth module routing */}
         <BrowserRouter>
