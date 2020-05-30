@@ -3,8 +3,6 @@
 
 .RaisedButton {
 
-  padding: 8px 16px;
-  border-radius: 4px;
   @include elevation;
   font-size: .8rem;
   color: white;
@@ -21,7 +19,7 @@
     background-color: $primary;
   }
 
-  transition: all 0.15s ease-in-out;
+  transition: background-color 0.15s ease-in-out;
 
   &:hover,
   &:active,

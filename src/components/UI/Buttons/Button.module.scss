@@ -1,8 +1,12 @@
+@import "../../../theme/partials/variables";
+
 .Button {
-  font-family: var(--font-family);
+  font-family: $font-family;
   border: none;
   outline: none;
   cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 4px;
 
   &:active,
   &:focus,
