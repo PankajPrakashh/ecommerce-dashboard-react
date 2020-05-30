@@ -21,7 +21,6 @@
     background-color: $primary;
   }
 
-  border: 1px solid transparent;
   transition: all 0.15s ease-in-out;
 
   &:hover,
@@ -29,18 +28,15 @@
   &:focus {
 
     &.Accent {
-      background-color: lighten($accent, 20);
-      border-color: darken($accent, 2);
+      background-color: lighten($accent, 22);
     }
 
     &.Warn {
-      background-color: lighten($warn, 20);
-      border-color: darken($warn, 2);
+      background-color: lighten($warn, 22);
     }
 
     &.Primary {
-      background-color: lighten($primary, 20);
-      border-color: darken($primary, 2);
+      background-color: lighten($primary, 22);
     }
   }
 }
