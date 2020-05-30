@@ -4,14 +4,24 @@
   
 
   .ProfilePic {
-    width: 66px;
-    margin-top: -40px;
-    padding: 5px 0;
+
+    $cardPadding: 14px;
+    $iconSize: 70px;
+    $padding: 2px;
+
+    width: #{$iconSize + ($padding * 2)};
+    margin-top: calc((#{-($iconSize + ($padding * 2))} / 2) - #{$cardPadding});
+    padding: $padding;
     text-align: center;
     background: white;
     border-radius: 50%;
     margin-left: auto;
     margin-right: auto;
+
+    i {
+      font-size: 5rem;
+      width: $iconSize !important;
+    }
   }
 
   .Remember {
