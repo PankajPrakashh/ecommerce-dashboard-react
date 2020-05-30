@@ -103,3 +103,26 @@ $ambient-shadow-map: (
     @include elevation($elevation);
   }
 }
+
+
+// Adjusts the size of a container
+@mixin size($width, $height: $width) {
+  @include width($width);
+  @include height($height);
+}
+
+// Adjusts height of a container
+// Set max, min and height property of the container
+@mixin height($val) {
+  height: $val;
+  min-height: $val;
+  max-height: $val;
+}
+
+// Adjusts width of a container
+// Set max, min and width property of the container
+@mixin width($val) {
+  width: $val;
+  min-width: $val;
+  max-width: $val;
+}

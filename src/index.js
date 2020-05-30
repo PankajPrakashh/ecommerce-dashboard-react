@@ -8,9 +8,11 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <App />,
+
+  // Disable strict mode as its throwing error with semantic UI
+  // <React.StrictMode>
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 

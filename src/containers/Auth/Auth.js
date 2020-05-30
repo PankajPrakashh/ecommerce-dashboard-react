@@ -1,6 +1,7 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
+import classes from './Auth.module.scss';
 import LoginPage from './LoginPage/LoginPage';
 
 export default class Auth extends Component {
@@ -36,7 +37,7 @@ export default class Auth extends Component {
   render () {
 
     return (
-      <Fragment>
+      <div className={classes.AuthPage}>
         
         {/* Auth module routing */}
         <BrowserRouter>
@@ -45,7 +46,7 @@ export default class Auth extends Component {
             <Redirect from="*" to={this.state.routeConfig.login}/>
           </Switch>
         </BrowserRouter>
-      </Fragment>
+      </div>
     );
   }
   
