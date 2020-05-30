@@ -4,6 +4,14 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import classes from './Auth.module.scss';
 import LoginPage from './LoginPage/LoginPage';
 
+
+
+const backgroundUrls = [
+  '../../assets/images/backgrounds/mountain-1.jpeg',
+  '../../assets/images/backgrounds/mountain-2.jpeg',
+  '../../assets/images/backgrounds/mountain-3.jpeg',
+];
+
 export default class Auth extends Component {
 
   state = {
@@ -11,6 +19,7 @@ export default class Auth extends Component {
       login: '/login',
       signup: '/signup', 
     },
+    activeBackgroundUrl: '', 
   };
 
   /**
@@ -18,6 +27,8 @@ export default class Auth extends Component {
    */
   componentDidMount() {
     this.mapRelativePathRoutes();
+    
+    this.setActiveBackgroundUrl();
   }
 
   /**
@@ -31,13 +42,30 @@ export default class Auth extends Component {
     routeConfig.login  = this.props.match.url + routeConfig.login;
     routeConfig.signup = this.props.match.url + routeConfig.signup;
 
-    this.setState({ routeConfig });
+    this.setState({ routeConfig: routeConfig });
+  }
+
+  /**
+   * Sets a random active background url.
+   */
+  setActiveBackgroundUrl = () => {
+
+    // Get total number of images available
+    const totalImages = backgroundUrls.length;
+
+    // Get a random image from the list
+    const randomImageIndex = Math.floor(Math.random() * (totalImages - 0) + 0);
+
+    this.setState({
+      activeBackgroundUrl: backgroundUrls[randomImageIndex],
+    });
   }
 
   render () {
 
     return (
-      <div className={[classes.AuthPage, classes.CenterContent].join(' ')}>
+      <div 
+        className={[classes.AuthPage, classes.CenterContent].join(' ')}>
         
         {/* Auth module routing */}
         <BrowserRouter>
