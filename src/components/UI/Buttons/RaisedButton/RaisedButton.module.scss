@@ -1,4 +1,5 @@
 @import "../../../../theme/partials/mixins";
+@import "../../../../theme/partials/variables";
 
 .RaisedButton {
 
@@ -9,14 +10,37 @@
   color: white;
 
   &.Accent {
-    background-color: var(--accent);
+    background-color: $accent;
   }
 
   &.Warn {
-    background-color: var(--warn);
+    background-color: $warn;
   }
 
   &.Primary {
-    background-color: var(--primary);
+    background-color: $primary;
+  }
+
+  border: 1px solid transparent;
+  transition: all 0.15s ease-in-out;
+
+  &:hover,
+  &:active,
+  &:focus {
+
+    &.Accent {
+      background-color: lighten($accent, 20);
+      border-color: darken($accent, 2);
+    }
+
+    &.Warn {
+      background-color: lighten($warn, 20);
+      border-color: darken($warn, 2);
+    }
+
+    &.Primary {
+      background-color: lighten($primary, 20);
+      border-color: darken($primary, 2);
+    }
   }
 }
