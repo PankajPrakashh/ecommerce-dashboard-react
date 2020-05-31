@@ -44,11 +44,22 @@ export default class LoginPage extends Component {
 
   /**
    */
-  setLoginErrors = () => {
+  _setErrorAnimation = () => {
     this.setState((prevState) => ({ 
       animation: semanticUITransitionOptionsMap.shake,
       visible: !prevState.visible
     }));
+  }
+
+  /**
+   * Sets login success animation to the login component. 
+   * Fades down the login component and changes the route.
+   */
+  _setSuccessAnimation = () => {
+    this.setState((prevState) => ({
+      animation: semanticUITransitionOptionsMap.fadeDown,
+      visible: !prevState.visible
+    }))
   }
 
   /**
@@ -98,6 +109,9 @@ export default class LoginPage extends Component {
    */
   _successLoginHandler = async (response) => {
     console.log('Login success');
+
+    // BUG Works correctly without error shows issues when it form has error first 
+    this._setSuccessAnimation();
 
     return true;
   }
