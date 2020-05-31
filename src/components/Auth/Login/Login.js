@@ -2,22 +2,21 @@ import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { Button, Card, Divider, Form, Icon, Popup } from 'semantic-ui-react';
 
+import withLoginForm from '../../../hoc/Auth/withLoginForm';
 import classes from './Login.module.scss';
 
 
 /**
  * 
  * @param {{ 
- *  onSubmit: () => {}, 
- *  valueChangeHandler: (e, semanticEvent) => {},
- *  userId: string,
- *  password: string,
- *  rememberMe: boolean,
+ *  values: { userId: string, password: string, rememberMe: string },
  *  progress: boolean,
- *  emailError: { content: string, position: string }
- *  passwordError: { content: string, position: string },
  *  showSocialLogin: boolean,
  *  socialLogins: string[],
+ *  handleChange: () => any,
+ *  onSubmit: () => any,
+ *  onSocialLogin: (type: string) => any
+ *  errors: any,
  * }} props 
  */
 const Login = (props) => {
@@ -44,7 +43,13 @@ const Login = (props) => {
   ) : null;
 
 
-  
+  // Map formik errors to semantic-ui error
+  const errors = {
+    userId: typeof props.errors.userId !== 'undefined' ? { content: props.errors.userId, pointing: 'below' } : false,
+    password: typeof props.errors.password !== 'undefined' ? { content: props.errors.password, pointing: 'above' } : false
+  };
+
+
   return (
     <Card className={classes.Login}>
       <Card.Content>
@@ -62,9 +67,9 @@ const Login = (props) => {
             placeholder="name@dashboard.com"
             width="16"
             name="userId"
-            value={props.userId}
-            error={props.emailError}
-            onChange={props.valueChangeHandler} />
+            value={props.values.userId}
+            error={errors.userId}
+            onChange={props.handleChange} />
 
           <Form.Input
             type="password"
@@ -72,16 +77,16 @@ const Login = (props) => {
             placeholder="Your secret password"
             width="16"
             name="password"
-            value={props.password}
-            error={props.passwordError}
-            onChange={props.valueChangeHandler} />
+            value={props.values.password}
+            error={errors.password}
+            onChange={props.handleChange} />
 
           <Form.Group className={classes.Remember}>
             <Form.Checkbox 
               label="Remember Me" 
               name="rememberMe" 
-              checked={props.rememberMe} 
-              onChange={props.toggleRememberMe} />
+              checked={props.values.rememberMe} 
+              onChange={props.handleChange} />
 
             <Popup
               content="Didn't remember your password? Click to reset your password!"
@@ -100,14 +105,6 @@ const Login = (props) => {
             type="submit" />
         </Form>
 
-        {/* <Divider className="my-24">
-          <span className={classes.OtherLoginSeparator}>OR</span>
-        </Divider>
-
-        <div className={classes.OtherLogin}>
-          <Icon name="facebook f" color="blue" />
-        </div> */}
-
         { socialLoginTemplate }
 
       </Card.Content>
@@ -118,13 +115,9 @@ const Login = (props) => {
 
 Login.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  userId: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
-  rememberMe: PropTypes.bool.isRequired,
-  toggleRememberMe: PropTypes.func.isRequired,
   progress: PropTypes.bool,
   showSocialLogin: PropTypes.bool,
   socialLogins: PropTypes.arrayOf(PropTypes.string),
 };
 
-export default Login;
+export default withLoginForm(Login);

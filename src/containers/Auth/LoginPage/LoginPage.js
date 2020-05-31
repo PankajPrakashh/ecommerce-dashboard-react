@@ -12,27 +12,8 @@ const socialLoginOptions = [
 
 export default class LoginPage extends Component {
   state = {
-    loginDetails: {
-      userId: "",
-      password: "",
-      rememberMe: false,
-    },
     loginProgress: false,
     loginDisabled: false,
-    error: {
-      email: {
-        content: 'Please enter a valid email address',
-        pointing: 'below',
-      },
-      password: {
-        content: 'Password is required',
-        pointing: 'above',
-      }
-    },
-    showError: {
-      email: false,
-      password: false,
-    },
     showSocialLogin: true,
     visible: false,
     animation: semanticUITransitionOptionsMap.fadeUp
@@ -51,31 +32,6 @@ export default class LoginPage extends Component {
     setTimeout(() => this.setState({ visible: true }), 50);
   }
 
-  /**
-   * Input fields value change handler
-   */
-  valueChangeHandler = (e, { name, value }) => {
-
-    const loginDetails = { ...this.state.loginDetails };
-
-    loginDetails[name] = value;
-
-    this.setState({ loginDetails });
-  };
-
-  /**
-   * Toggles remember me
-   */
-  toggleRememberMe = () => {
-
-    this.setState(prevState => {
-      const loginDetails = { ...this.state.loginDetails };
-  
-      loginDetails.rememberMe = !prevState.loginDetails.rememberMe;
-
-      return { loginDetails: loginDetails };
-    });
-  }
 
   /**
    * Sets login progress mode to true.
@@ -90,7 +46,6 @@ export default class LoginPage extends Component {
    */
   setLoginErrors = () => {
     this.setState((prevState) => ({ 
-      showError: { email: true, password: true },
       animation: semanticUITransitionOptionsMap.shake,
       visible: !prevState.visible
     }));
@@ -105,30 +60,35 @@ export default class LoginPage extends Component {
 
   /**
    * Login button click handler
+   * 
+   * @param {import('../../../model/Auth').IAuth} authDetails
    */
-  loginHandler = () => {
-
-    // Extract login details from state
-    const loginDetails = { ...this.state.loginDetails };
+  loginHandler = async (authDetails) => {
     
-    console.log(loginDetails);
+    console.log(authDetails);
 
     this.setLoginProgress(true);
 
     // Validate login details with API
-    this._validateLoginWithApi(loginDetails);
+    return this._validateLoginWithApi(authDetails);
   };
 
   /**
    * Send the login details to api and validate it for correctness.
+   * 
+   * @param {import('../../../model/Auth').IAuth} login
    */
-  _validateLoginWithApi = (login) => {
+  _validateLoginWithApi = async (login) => {
 
     // TODO Send login details to API
 
     // TODO Call the success and failed login handler based on login 
 
-    this._failedLoginHandler();
+    if (login.userId === 'admin@admin.com' && login.password === 'admin') {
+      return this._successLoginHandler();
+    }
+    
+    return this._failedLoginHandler();
   }
 
   /**
@@ -136,19 +96,26 @@ export default class LoginPage extends Component {
    * 
    * #TODO Implement success login handler
    */
-  _successLoginHandler = (response) => {
+  _successLoginHandler = async (response) => {
     console.log('Login success');
+
+    return true;
   }
 
   /**
    * Failed Login handler method
    * 
    * #TODO Implement failed login handler
+   * 
+   * @param {import('../../../model/Auth').IAuth} loginDetails
+   * @param {any} response
    */
-  _failedLoginHandler = (response) => {
+  _failedLoginHandler = async (loginDetails, response) => {
     console.log('Login failed');
 
     this._shakeLoginForm();
+
+    return false;
   }
 
   /**
@@ -173,14 +140,7 @@ export default class LoginPage extends Component {
           <Login
             {...this.props}
             onSubmit={this.loginHandler}
-            valueChangeHandler={this.valueChangeHandler}
-            userId={this.state.loginDetails.userId}
-            password={this.state.loginDetails.password}
-            rememberMe={this.state.loginDetails.rememberMe}
-            toggleRememberMe={this.toggleRememberMe}
             progress={this.state.loginProgress}
-            emailError={this.state.showError.email ? this.state.error.email : null}
-            passwordError={this.state.showError.password ? this.state.error.password : null}
             showSocialLogin={this.state.showSocialLogin}
             socialLogins={socialLoginOptions}
             onSocialLogin={this.socialLoginHandler}
