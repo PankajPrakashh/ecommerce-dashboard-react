@@ -30,4 +30,20 @@
     flex-flow: row;
     justify-content: space-between;
   }
+
+  .OtherLoginSeparator {
+    display: block;
+    width: max-content;
+    margin-top: -7px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 8px;
+    background: white;
+  }
+
+  .OtherLogin {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+  }
 }

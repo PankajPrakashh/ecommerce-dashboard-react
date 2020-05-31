@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import { Transition } from 'semantic-ui-react';
 
 import Login from '../../../components/Auth/Login/Login';
+import { semanticUITransitionOptionsMap } from '../../../constants/SemanticsUI';
+
+const socialLoginOptions = [
+  'facebook',
+  'twitter',
+  'linkedin',
+];
 
 export default class LoginPage extends Component {
   state = {
@@ -10,8 +17,8 @@ export default class LoginPage extends Component {
       password: "",
       rememberMe: false,
     },
-    visible: false,
     loginProgress: false,
+    loginDisabled: false,
     error: {
       email: {
         content: 'Please enter a valid email address',
@@ -26,6 +33,9 @@ export default class LoginPage extends Component {
       email: false,
       password: false,
     },
+    showSocialLogin: true,
+    visible: false,
+    animation: semanticUITransitionOptionsMap.fadeUp
   };
 
   componentDidMount() {
@@ -79,25 +89,84 @@ export default class LoginPage extends Component {
   /**
    */
   setLoginErrors = () => {
-    this.setState((prevState) => ({ showError: { email: true, password: true }}));
+    this.setState((prevState) => ({ 
+      showError: { email: true, password: true },
+      animation: semanticUITransitionOptionsMap.shake,
+      visible: !prevState.visible
+    }));
+  }
+
+  /**
+   * Social login click handler
+   */
+  socialLoginHandler = (loginWith) => {
+    console.log('Dummy social login with ', loginWith);
   }
 
   /**
    * Login button click handler
    */
   loginHandler = () => {
-    console.log(this.state);
+
+    // Extract login details from state
+    const loginDetails = { ...this.state.loginDetails };
+    
+    console.log(loginDetails);
 
     this.setLoginProgress(true);
 
-    this.setLoginErrors();
+    // Validate login details with API
+    this._validateLoginWithApi(loginDetails);
   };
+
+  /**
+   * Send the login details to api and validate it for correctness.
+   */
+  _validateLoginWithApi = (login) => {
+
+    // TODO Send login details to API
+
+    // TODO Call the success and failed login handler based on login 
+
+    this._failedLoginHandler();
+  }
+
+  /**
+   * Successful login handler
+   * 
+   * #TODO Implement success login handler
+   */
+  _successLoginHandler = (response) => {
+    console.log('Login success');
+  }
+
+  /**
+   * Failed Login handler method
+   * 
+   * #TODO Implement failed login handler
+   */
+  _failedLoginHandler = (response) => {
+    console.log('Login failed');
+
+    this._shakeLoginForm();
+  }
+
+  /**
+   * Animates the login for with shake animation. Use this method 
+   * generally on failed login.
+   */
+  _shakeLoginForm = () => {
+    this.setState(prevState => ({ 
+      animation: semanticUITransitionOptionsMap.shake,
+      visible: !prevState.visible
+    }));
+  }
 
 
   render() {
     return (
 
-      <Transition visible={this.state.visible} animation="fade up" duration={600}>
+      <Transition visible={this.state.visible} animation={this.state.animation} duration={600}>
 
         {/* Without container transition does not work for custom components */}
         <div>
@@ -112,6 +181,9 @@ export default class LoginPage extends Component {
             progress={this.state.loginProgress}
             emailError={this.state.showError.email ? this.state.error.email : null}
             passwordError={this.state.showError.password ? this.state.error.password : null}
+            showSocialLogin={this.state.showSocialLogin}
+            socialLogins={socialLoginOptions}
+            onSocialLogin={this.socialLoginHandler}
           />
         </div>
 
