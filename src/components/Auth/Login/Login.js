@@ -83,8 +83,9 @@ const Login = (props) => {
 
           <Form.Group className={classes.Remember}>
             <Form.Checkbox 
-              label="Remember Me" 
+              label="Remember Me"
               name="rememberMe" 
+              id="rememberMe"
               checked={props.values.rememberMe} 
               onChange={props.handleChange} />
 
@@ -99,6 +100,7 @@ const Login = (props) => {
             className="mt-28"
             fluid
             loading={props.progress}
+            disabled={props.progress}
             content="Log In"
             color="teal"
             role="submit"

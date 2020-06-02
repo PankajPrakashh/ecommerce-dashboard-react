@@ -76,9 +76,7 @@ export default class LoginPage extends Component {
    */
   loginHandler = async (authDetails) => {
     
-    console.log(authDetails);
-
-    this.setLoginProgress(true);
+    // console.log(authDetails);
 
     // Validate login details with API
     return this._validateLoginWithApi(authDetails);
@@ -95,11 +93,24 @@ export default class LoginPage extends Component {
 
     // TODO Call the success and failed login handler based on login 
 
-    if (login.userId === 'admin@admin.com' && login.password === 'admin') {
-      return this._successLoginHandler();
-    }
-    
-    return this._failedLoginHandler();
+    return new Promise((reject, resolve) => {
+
+      // Set login progress 
+      this.setLoginProgress(true);
+
+      // Ensure some delay to fake API call
+      setTimeout(() => {
+
+        if (login.userId === 'admin@admin.com' && login.password === 'admin') {
+          resolve(this._successLoginHandler());
+        } else {
+          reject(this._failedLoginHandler());
+        }
+
+        this.setLoginProgress(false);
+        
+      }, 2000);
+    }); 
   }
 
   /**
@@ -158,6 +169,7 @@ export default class LoginPage extends Component {
             showSocialLogin={this.state.showSocialLogin}
             socialLogins={socialLoginOptions}
             onSocialLogin={this.socialLoginHandler}
+            loginErrors={null}
           />
         </div>
 
