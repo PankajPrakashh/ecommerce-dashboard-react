@@ -1,4 +1,5 @@
 import './index.scss';
+import 'react-toastify/dist/ReactToastify.css';
 import 'semantic-ui-css/semantic.min.css';
 
 import React from 'react';
@@ -8,7 +9,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 
-/// <reference path= "./model/Auth.d.ts" />
+/// <reference path= "./model/index.d.ts" />
 
 ReactDOM.render(
   <App />,
