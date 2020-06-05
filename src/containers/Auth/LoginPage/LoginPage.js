@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { toast } from 'react-toastify';
 import { Transition } from 'semantic-ui-react';
 
 import Login from '../../../components/Auth/Login/Login';
@@ -136,7 +137,15 @@ export default class LoginPage extends Component {
    * @param {any} response
    */
   _failedLoginHandler = async (loginDetails, response) => {
-    console.log('Login failed');
+    // console.log('Login failed');
+
+    toast('Use admin@admin.com (admin)', {
+      position: "bottom-center",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      bodyClassName: 'text-primary'
+    });
 
     this._shakeLoginForm();
 

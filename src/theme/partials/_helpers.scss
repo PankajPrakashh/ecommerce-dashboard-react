@@ -1,14 +1,4 @@
-.text-center {
-  text-align: center;
-}
-
-.text-right {
-  text-align: right;
-}
-
-.text-left {
-  text-align: left;
-}
+@import "./variables";
 
 // ------------------------------------------------------------------
 // @ Position helpers
@@ -211,4 +201,20 @@ $border-style: 1px solid rgba(0, 0, 0, 0.12);
 .by {
   border-top: $border-style;
   border-bottom: $border-style;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-primary {
+  color: $text-primary;
 }

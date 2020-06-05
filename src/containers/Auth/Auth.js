@@ -64,8 +64,7 @@ export default class Auth extends Component {
   render () {
 
     return (
-      <div 
-        className={[classes.AuthPage, classes.CenterContent].join(' ')}>
+      <div className={[classes.AuthPage, classes.CenterContent].join(' ')}>
         
         {/* Auth module routing */}
         <BrowserRouter>
@@ -74,6 +73,7 @@ export default class Auth extends Component {
             <Redirect from="*" to={this.state.routeConfig.login}/>
           </Switch>
         </BrowserRouter>
+
       </div>
     );
   }
