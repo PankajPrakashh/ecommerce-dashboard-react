@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import { Button, Card, Divider, Form, Icon, Popup } from 'semantic-ui-react';
 
 import withLoginForm from '../../../hoc/Auth/withLoginForm';
@@ -91,7 +92,10 @@ const Login = (props) => {
 
             <Popup
               content="Didn't remember your password? Click to reset your password!"
-              trigger={ <a href="/">Forgot Password?</a> }>
+              trigger={ 
+                <Link to="/auth/password-reset">Forgot Password?</Link>
+                // <a href="/">Forgot Password?</a> 
+              }>
             </Popup>
               
           </Form.Group>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import classes from './Auth.module.scss';
+import ForgotPasswordPage from './ForgotPasswordPage/ForgotPasswordPage';
 import LoginPage from './LoginPage/LoginPage';
 
 
@@ -15,9 +16,12 @@ const backgroundUrls = [
 export default class Auth extends Component {
 
   state = {
+
+    // NOTE: Ensure you also update the route configuration in mapRelativePathRoutes
     routeConfig: {
       login: '/login',
-      signup: '/signup', 
+      signup: '/signup',
+      forgotPassword: '/password-reset'
     },
     activeBackgroundUrl: '', 
   };
@@ -28,7 +32,7 @@ export default class Auth extends Component {
   componentDidMount() {
     this.mapRelativePathRoutes();
     
-    this.setActiveBackgroundUrl();
+    // this.setActiveBackgroundUrl();
   }
 
   /**
@@ -39,8 +43,9 @@ export default class Auth extends Component {
 
     const routeConfig = { ...this.state.routeConfig };
 
-    routeConfig.login  = this.props.match.url + routeConfig.login;
-    routeConfig.signup = this.props.match.url + routeConfig.signup;
+    routeConfig.login          = this.props.match.url + routeConfig.login;
+    routeConfig.signup         = this.props.match.url + routeConfig.signup;
+    routeConfig.forgotPassword = this.props.match.url + routeConfig.forgotPassword;
 
     this.setState({ routeConfig: routeConfig });
   }
@@ -69,7 +74,8 @@ export default class Auth extends Component {
         {/* Auth module routing */}
         <BrowserRouter>
           <Switch>
-            <Route path={this.state.routeConfig.login} component={LoginPage} exact/>
+            <Route path={this.state.routeConfig.login} component={LoginPage} />
+            <Route path={this.state.routeConfig.forgotPassword} component={ForgotPasswordPage}/>
             <Redirect from="*" to={this.state.routeConfig.login}/>
           </Switch>
         </BrowserRouter>

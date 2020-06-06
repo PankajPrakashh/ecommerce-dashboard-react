@@ -21,7 +21,7 @@ class App extends Component {
         {/* Root routing */}
         <BrowserRouter>
           <Switch>
-            <Route path={this.state.routeConfig.auth} exact component={Auth}/>
+            <Route path={this.state.routeConfig.auth} component={Auth}/>
             <Redirect from="*" to={this.state.routeConfig.auth}/>
           </Switch>
         </BrowserRouter>

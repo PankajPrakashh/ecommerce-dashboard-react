@@ -26,6 +26,10 @@ class LoginPage extends Component {
     this.showLoginComponent();
   }
 
+  componentWillUnmount() {
+    this.hideLoginPage();
+  }
+
   /**
    * Shows the login component after delay.
    * 
@@ -33,6 +37,17 @@ class LoginPage extends Component {
    */
   showLoginComponent = () => {
     setTimeout(() => this.setState({ visible: true }), 50);
+  }
+
+  /**
+   * Hides the login component.
+   * Fades down the login component and changes the route.
+   */
+  hideLoginPage = () => {
+    this.setState((prevState) => ({
+      animation: semanticUITransitionOptionsMap.fadeDown,
+      visible: !prevState.visible
+    }));
   }
 
 
@@ -52,17 +67,6 @@ class LoginPage extends Component {
       animation: semanticUITransitionOptionsMap.shake,
       visible: !prevState.visible
     }));
-  }
-
-  /**
-   * Sets login success animation to the login component. 
-   * Fades down the login component and changes the route.
-   */
-  _setSuccessAnimation = () => {
-    this.setState((prevState) => ({
-      animation: semanticUITransitionOptionsMap.fadeDown,
-      visible: !prevState.visible
-    }))
   }
 
   /**
@@ -129,7 +133,7 @@ class LoginPage extends Component {
     console.log('Login success');
 
     // BUG Works correctly without error shows issues when it form has error first 
-    this._setSuccessAnimation();
+    this.hideLoginPage();
 
     // Update the store with the login details
     this.props.onLogin(request);
