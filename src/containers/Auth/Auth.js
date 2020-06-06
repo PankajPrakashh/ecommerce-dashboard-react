@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
+import { appRoute } from '../../routes';
 import classes from './Auth.module.scss';
 import ForgotPasswordPage from './ForgotPasswordPage/ForgotPasswordPage';
 import LoginPage from './LoginPage/LoginPage';
@@ -16,38 +17,15 @@ const backgroundUrls = [
 export default class Auth extends Component {
 
   state = {
-
-    // NOTE: Ensure you also update the route configuration in mapRelativePathRoutes
-    routeConfig: {
-      login: '/login',
-      signup: '/signup',
-      forgotPassword: '/password-reset'
-    },
     activeBackgroundUrl: '', 
   };
-
+  
   /**
    * Execute once while just after component instance is ready
    */
   componentDidMount() {
-    this.mapRelativePathRoutes();
     
     // this.setActiveBackgroundUrl();
-  }
-
-  /**
-   * Maps relative path urls to the absolute path url based on the 
-   * current url
-   */
-  mapRelativePathRoutes = () => {
-
-    const routeConfig = { ...this.state.routeConfig };
-
-    routeConfig.login          = this.props.match.url + routeConfig.login;
-    routeConfig.signup         = this.props.match.url + routeConfig.signup;
-    routeConfig.forgotPassword = this.props.match.url + routeConfig.forgotPassword;
-
-    this.setState({ routeConfig: routeConfig });
   }
 
   /**
@@ -72,13 +50,13 @@ export default class Auth extends Component {
       <div className={[classes.AuthPage, classes.CenterContent].join(' ')}>
         
         {/* Auth module routing */}
-        <BrowserRouter>
-          <Switch>
-            <Route path={this.state.routeConfig.login} component={LoginPage} />
-            <Route path={this.state.routeConfig.forgotPassword} component={ForgotPasswordPage}/>
-            <Redirect from="*" to={this.state.routeConfig.login}/>
-          </Switch>
-        </BrowserRouter>
+        <Switch>
+          <Route path={appRoute.auth.login} component={LoginPage} />
+          <Route path={appRoute.auth.passwordReset} component={ForgotPasswordPage} />
+          <Route path="*">
+            <Redirect to={appRoute.auth.login}/>
+          </Route>
+        </Switch>
 
       </div>
     );

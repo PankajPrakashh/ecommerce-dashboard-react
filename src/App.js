@@ -3,15 +3,10 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import Auth from './containers/Auth/Auth';
+import { appRoute } from './routes';
 
 
 class App extends Component {
-
-  state = {
-    routeConfig: {
-      auth: '/auth',
-    }
-  };
 
   render () {
 
@@ -21,8 +16,11 @@ class App extends Component {
         {/* Root routing */}
         <BrowserRouter>
           <Switch>
-            <Route path={this.state.routeConfig.auth} component={Auth}/>
-            <Redirect from="*" to={this.state.routeConfig.auth}/>
+            <Route path={appRoute.auth.root} component={Auth}/>
+
+            <Route path="*">
+              <Redirect to={appRoute.notFound}/>
+            </Route>
           </Switch>
         </BrowserRouter>
 
