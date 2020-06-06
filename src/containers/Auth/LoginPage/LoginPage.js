@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Transition } from 'semantic-ui-react';
 
 import Login from '../../../components/Auth/Login/Login';
 import { semanticUITransitionOptionsMap } from '../../../constants/SemanticsUI';
+import * as actionTypes from '../../../store/actions';
 
 const socialLoginOptions = [
   'facebook',
@@ -11,7 +13,7 @@ const socialLoginOptions = [
   'linkedin',
 ];
 
-export default class LoginPage extends Component {
+class LoginPage extends Component {
   state = {
     loginProgress: false,
     loginDisabled: false,
@@ -103,14 +105,14 @@ export default class LoginPage extends Component {
       setTimeout(() => {
 
         if (login.userId === 'admin@admin.com' && login.password === 'admin') {
-          resolve(this._successLoginHandler());
+          resolve(this._successLoginHandler(login, null));
         } else {
           reject(this._failedLoginHandler());
         }
 
         this.setLoginProgress(false);
         
-      }, 2000);
+      }, 1500);
     }); 
   }
 
@@ -118,12 +120,19 @@ export default class LoginPage extends Component {
    * Successful login handler
    * 
    * #TODO Implement success login handler
+   * 
+   * @param {import('../../../model').IAuth} request
+   * @param {any} response
    */
-  _successLoginHandler = async (response) => {
+  _successLoginHandler = async (request, response) => {
+    
     console.log('Login success');
 
     // BUG Works correctly without error shows issues when it form has error first 
     this._setSuccessAnimation();
+
+    // Update the store with the login details
+    this.props.onLogin(request);
 
     return true;
   }
@@ -186,3 +195,24 @@ export default class LoginPage extends Component {
     );
   }
 }
+
+
+
+// Connect component with the redux
+
+const mapStateToProps = state => ({
+  auth: {
+    userId: state.auth.userId,
+    password: state.auth.password,
+  }
+});
+
+const mapDispatchToProps = dispatch => ({
+  
+  /**
+   * @param {import('../../../model').IAuth} payload
+   */
+  onLogin: (payload) => dispatch({type: actionTypes.AUTH_LOGIN, payload})
+}); 
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
