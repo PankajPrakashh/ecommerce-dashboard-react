@@ -1,15 +1,53 @@
 import React, { Component } from 'react';
+import { Transition } from 'semantic-ui-react';
 
-import classes from './ForgotPasswordPage.module.scss';
+import ForgetPassword from '../../../components/Auth/ForgetPassword/ForgetPassword';
+import { semanticUITransitionOptionsMap } from '../../../constants/SemanticsUI';
 
 class ForgotPasswordPage extends Component {
+
+  state = {
+    progress: false,
+    visible: false,
+    animation: semanticUITransitionOptionsMap.fadeUp,
+  };
+
+  componentDidMount() {
+    this.showComponent();
+  }
+
+  /**
+   * Shows the forgot password component
+   */
+  showComponent = () => {
+
+    setTimeout(() => {
+      this.setState((prevState) => ({ visible: !prevState.visible}));
+    }, 50);
+  }
+
+  /**
+   * Hides the forgot password component
+   */
+  hideComponent = () => {
+    
+    this.setState((prevState) => ({ 
+      visible: !prevState.visible, 
+      animation: semanticUITransitionOptionsMap.fadeDown
+    }));
+  }
 
   render () {
     
     return (
-      <div className={classes.ForgotPasswordPage}>
-        forgot password works
-      </div>
+      <Transition visible={this.state.visible} animation={this.state.animation} duration={400}>
+        <div>
+          <ForgetPassword 
+            {...this.props}
+            progress={this.state.progress}
+            />
+        </div>
+      </Transition>
     );
   }
 }

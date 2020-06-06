@@ -27,7 +27,7 @@ class LoginPage extends Component {
   }
 
   componentWillUnmount() {
-    this.hideLoginPage();
+    this.hideLoginComponent();
   }
 
   /**
@@ -43,7 +43,7 @@ class LoginPage extends Component {
    * Hides the login component.
    * Fades down the login component and changes the route.
    */
-  hideLoginPage = () => {
+  hideLoginComponent = () => {
     this.setState((prevState) => ({
       animation: semanticUITransitionOptionsMap.fadeDown,
       visible: !prevState.visible
@@ -133,7 +133,7 @@ class LoginPage extends Component {
     console.log('Login success');
 
     // BUG Works correctly without error shows issues when it form has error first 
-    this.hideLoginPage();
+    this.hideLoginComponent();
 
     // Update the store with the login details
     this.props.onLogin(request);
@@ -180,7 +180,7 @@ class LoginPage extends Component {
   render() {
     return (
 
-      <Transition visible={this.state.visible} animation={this.state.animation} duration={600}>
+      <Transition visible={this.state.visible} animation={this.state.animation} duration={400}>
 
         {/* Without container transition does not work for custom components */}
         <div>

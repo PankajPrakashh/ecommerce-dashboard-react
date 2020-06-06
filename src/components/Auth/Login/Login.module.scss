@@ -1,30 +1,5 @@
 .Login {
-
-  width: 340px !important;
-  box-shadow: 0 2px 8px 4px rgba(0, 0, 0, 0.25) !important;
   
-
-  .ProfilePic {
-
-    $cardPadding: 14px;
-    $iconSize: 70px;
-    $padding: 2px;
-
-    width: #{$iconSize + ($padding * 2)};
-    margin-top: calc((#{-($iconSize + ($padding * 2))} / 2) - #{$cardPadding});
-    padding: $padding;
-    text-align: center;
-    background: white;
-    border-radius: 50%;
-    margin-left: auto;
-    margin-right: auto;
-
-    i {
-      font-size: 5rem;
-      width: $iconSize !important;
-    }
-  }
-
   .Remember {
     max-width: 100%;
     display: flex;

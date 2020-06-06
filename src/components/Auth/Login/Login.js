@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Card, Divider, Form, Icon, Popup } from 'semantic-ui-react';
+import { Button, Divider, Form, Popup } from 'semantic-ui-react';
 
 import withLoginForm from '../../../hoc/Auth/withLoginForm';
+import { appRoute } from '../../../routes';
+import AuthCard from '../AuthCard/AuthCard';
 import classes from './Login.module.scss';
-
 
 /**
  * 
@@ -52,69 +53,58 @@ const Login = (props) => {
 
 
   return (
-    <Card className={classes.Login}>
-      <Card.Content>
-        <div className={classes.ProfilePic}>
-          <Icon name="user circle outline" size="huge" color="orange" />
-        </div>
+    <AuthCard icon="user circle outline" iconSize="huge" iconColor="orange" className={classes.Login}>
+      
+      <Form autoComplete="off" onSubmit={props.onSubmit}>
+        <Form.Input
+          focus
+          type="email"
+          icon="mail outline"
+          placeholder="name@dashboard.com"
+          width="16"
+          name="userId"
+          value={props.values.userId}
+          error={errors.userId}
+          onChange={props.handleChange} />
 
-        <h2 className="mt-12 mb-28">Login to your account</h2>
+        <Form.Input
+          type="password"
+          icon="key"
+          placeholder="Your secret password"
+          width="16"
+          name="password"
+          value={props.values.password}
+          error={errors.password}
+          onChange={props.handleChange} />
 
-        <Form autoComplete="off" onSubmit={props.onSubmit}>
-          <Form.Input
-            focus
-            type="email"
-            icon="mail outline"
-            placeholder="name@dashboard.com"
-            width="16"
-            name="userId"
-            value={props.values.userId}
-            error={errors.userId}
+        <Form.Group className={classes.Remember}>
+          <Form.Checkbox 
+            label="Remember Me"
+            name="rememberMe" 
+            id="rememberMe"
+            checked={props.values.rememberMe} 
             onChange={props.handleChange} />
 
-          <Form.Input
-            type="password"
-            icon="key"
-            placeholder="Your secret password"
-            width="16"
-            name="password"
-            value={props.values.password}
-            error={errors.password}
-            onChange={props.handleChange} />
+          <Popup
+            content="Didn't remember your password? Click to reset your password!"
+            trigger={ <Link to={appRoute.auth.passwordReset}>Forgot Password?</Link> }>
+          </Popup>
+            
+        </Form.Group>
 
-          <Form.Group className={classes.Remember}>
-            <Form.Checkbox 
-              label="Remember Me"
-              name="rememberMe" 
-              id="rememberMe"
-              checked={props.values.rememberMe} 
-              onChange={props.handleChange} />
+        <Button
+          className="border-radius-20 mt-28"
+          fluid
+          loading={props.progress}
+          disabled={props.progress}
+          content="Log In"
+          color="orange"
+          role="submit"
+          type="submit" />
+      </Form>
 
-            <Popup
-              content="Didn't remember your password? Click to reset your password!"
-              trigger={ 
-                <Link to="/auth/password-reset">Forgot Password?</Link>
-                // <a href="/">Forgot Password?</a> 
-              }>
-            </Popup>
-              
-          </Form.Group>
-
-          <Button
-            className="border-radius-20 mt-28"
-            fluid
-            loading={props.progress}
-            disabled={props.progress}
-            content="Log In"
-            color="orange"
-            role="submit"
-            type="submit" />
-        </Form>
-
-        { socialLoginTemplate }
-
-      </Card.Content>
-    </Card>
+      { socialLoginTemplate }
+    </AuthCard>
   );
 }
 
