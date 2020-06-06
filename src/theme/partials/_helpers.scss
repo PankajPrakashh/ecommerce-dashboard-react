@@ -218,3 +218,12 @@ $border-style: 1px solid rgba(0, 0, 0, 0.12);
 .text-primary {
   color: $text-primary;
 }
+
+@for $i from 2 to 20 {
+  
+  $value: $i * 2;
+
+  .border-radius-#{$value} {
+    border-radius: #{$value}px !important;
+  }
+}

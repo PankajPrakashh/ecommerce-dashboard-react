@@ -54,7 +54,7 @@ const Login = (props) => {
     <Card className={classes.Login}>
       <Card.Content>
         <div className={classes.ProfilePic}>
-          <Icon name="user circle outline" size="huge" color="teal" />
+          <Icon name="user circle outline" size="huge" color="orange" />
         </div>
 
         <h2 className="mt-12 mb-28">Login to your account</h2>
@@ -97,12 +97,12 @@ const Login = (props) => {
           </Form.Group>
 
           <Button
-            className="mt-28"
+            className="border-radius-20 mt-28"
             fluid
             loading={props.progress}
             disabled={props.progress}
             content="Log In"
-            color="teal"
+            color="orange"
             role="submit"
             type="submit" />
         </Form>

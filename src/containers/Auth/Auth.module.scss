@@ -1,9 +1,10 @@
 @import "../../theme/partials/mixins";
 
 .AuthPage {
-  background-image: url(../../assets/images/backgrounds/mountain-1.jpeg);
-  background-image: url(../../assets/images/backgrounds/mountain-2.jpeg);
+  // background-image: url(../../assets/images/backgrounds/mountain-1.jpeg);
+  // background-image: url(../../assets/images/backgrounds/mountain-2.jpeg);
   // background-image: url(../../assets/images/backgrounds/mountain-3.jpeg);
+  background-image: url(../../assets/images/backgrounds/mountain-4.jpeg);
   
   @include size(100vw, 100vh);
 
