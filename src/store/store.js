@@ -1,4 +1,4 @@
-import { combineReducers, createStore } from 'redux';
+import { combineReducers, compose, createStore } from 'redux';
 
 import authReducer from './reducers/Auth/AuthReducer';
 
@@ -12,8 +12,19 @@ const rootReducer = combineReducers({
   auth: authReducer
 });
 
+/**
+ * Redux dev tools configuration
+ * 
+ * @see https://github.com/zalmoxisus/redux-devtools-extension
+ */
+const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) 
+  || compose;
+
 
 /**
  * Root store for the redux app
  */
-export const dashboardStore = createStore(rootReducer);
+export const dashboardStore = createStore(
+  rootReducer, 
+  composeEnhancers()
+);
