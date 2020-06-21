@@ -34,9 +34,7 @@ const Login = (props) => {
 
   const socialLoginTemplate = props.showSocialLogin ? (
     <Fragment>
-      <Divider className="mt-24">
-        <span className={classes.OtherLoginSeparator}>OR</span>
-      </Divider>
+      <Divider horizontal>OR</Divider>
 
       <div className={classes.OtherLogin}>
         { socialLoginTemplates }

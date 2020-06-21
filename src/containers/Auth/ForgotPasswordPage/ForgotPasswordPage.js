@@ -37,6 +37,16 @@ class ForgotPasswordPage extends Component {
     }));
   }
 
+  /**
+   * Forgot password click event handler.
+   * 
+   * @param {string} userId  
+   */
+  forgotPasswordHandler = (userId) => {
+    
+    // TODO: Implement forgot password
+  } 
+
   render () {
     
     return (
@@ -44,6 +54,7 @@ class ForgotPasswordPage extends Component {
         <div>
           <ForgetPassword 
             {...this.props}
+            onSubmit={this.forgotPasswordHandler}
             progress={this.state.progress}
             />
         </div>

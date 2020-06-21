@@ -227,3 +227,16 @@ $border-style: 1px solid rgba(0, 0, 0, 0.12);
     border-radius: #{$value}px !important;
   }
 }
+
+
+
+// ------------------------------------------------------------------
+// Display helpers
+// ------------------------------------------------------------------
+.d-flex {
+  display: flex;
+}
+
+.justify-space-between {
+  justify-content: space-between;
+}
