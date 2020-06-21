@@ -81,7 +81,7 @@ class LoginPage extends Component {
    * 
    * @param {import('../../../model/Auth').IAuth} authDetails
    */
-  loginHandler = async (authDetails) => {
+  loginHandler = (authDetails) => {
     
     // console.log(authDetails);
 
@@ -94,13 +94,13 @@ class LoginPage extends Component {
    * 
    * @param {import('../../../model/Auth').IAuth} login
    */
-  _validateLoginWithApi = async (login) => {
+  _validateLoginWithApi = (login) => {
 
     // TODO Send login details to API
 
     // TODO Call the success and failed login handler based on login 
 
-    return new Promise((reject, resolve) => {
+    return new Promise((resolve, reject) => {
 
       // Set login progress 
       this.setLoginProgress(true);
@@ -128,7 +128,7 @@ class LoginPage extends Component {
    * @param {import('../../../model').IAuth} request
    * @param {any} response
    */
-  _successLoginHandler = async (request, response) => {
+  _successLoginHandler = (request, response) => {
     
     console.log('Login success');
 
@@ -149,7 +149,7 @@ class LoginPage extends Component {
    * @param {import('../../../model/Auth').IAuth} loginDetails
    * @param {any} response
    */
-  _failedLoginHandler = async (loginDetails, response) => {
+  _failedLoginHandler = (loginDetails, response) => {
     // console.log('Login failed');
 
     toast('Use admin@admin.com (admin)', {

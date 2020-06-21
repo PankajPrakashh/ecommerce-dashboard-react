@@ -3,11 +3,11 @@ import { Map } from 'immutable';
 /**
  * Auth reducer initial state
  */
-export const initialState = Map({
+export const initialState = {
   userId: '',
   password: '',
   rememberMe: false,
-});
+};
 
 /**
  * Updates the login state
@@ -16,7 +16,7 @@ export const initialState = Map({
  */
 export const login = (state, payload) => {
   
-  const previousState = Map({...state});
+  const previousState = Map({...state}).toJS();
   
   // Merge previous state with the new state
   return {

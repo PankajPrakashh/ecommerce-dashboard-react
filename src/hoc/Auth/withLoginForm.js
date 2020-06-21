@@ -34,7 +34,7 @@ function withLoginForm (LoginComponent) {
      * @param {import('../../model/Auth').IAuth} value
      * @param {import('formik').FormikHelpers} actions
      */
-    onSubmit = (value, actions) => {
+    onSubmit = async (value, actions) => {
 
       const errors = this._validateForm(value);
 
@@ -46,7 +46,11 @@ function withLoginForm (LoginComponent) {
       } 
 
       // No errors continue ahead
-      this.props.onSubmit(value);
+      try {
+        await this.props.onSubmit(value);
+      } catch (e) {
+        console.error('Unable to login in. ', e);
+      }
     }
 
     /**
